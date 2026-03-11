@@ -45,3 +45,19 @@ export async function POST(
     return NextResponse.json({ error: 'Failed to save document' }, { status: 500 });
   }
 }
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    await prisma.document.delete({
+      where: { id },
+    });
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting document:', error);
+    return NextResponse.json({ error: 'Failed to delete document' }, { status: 500 });
+  }
+}
