@@ -38,7 +38,7 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
     content: initialContent,
     editorProps: {
       attributes: {
-        class: 'prose prose-sm dark:prose-invert max-w-none focus:outline-none min-h-[500px]',
+        class: 'focus:outline-none',
       },
     },
     onUpdate: ({ editor }) => {

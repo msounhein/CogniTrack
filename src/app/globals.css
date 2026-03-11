@@ -127,3 +127,73 @@
     @apply font-sans;
   }
 }
+
+/* Tiptap Editor Styles */
+.tiptap {
+  @apply outline-none min-h-[500px] py-4;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  @apply text-muted-foreground float-left h-0 pointer-events-none content-[attr(data-placeholder)];
+}
+
+.tiptap h1 {
+  @apply text-4xl font-extrabold tracking-tight mt-8 mb-4;
+}
+
+.tiptap h2 {
+  @apply text-3xl font-semibold tracking-tight mt-8 mb-4 pb-1 border-b;
+}
+
+.tiptap p {
+  @apply leading-7 mt-4 first:mt-0;
+}
+
+.tiptap ul {
+  @apply my-6 ml-6 list-disc [&>li]:mt-2;
+}
+
+.tiptap ol {
+  @apply my-6 ml-6 list-decimal [&>li]:mt-2;
+}
+
+.tiptap blockquote {
+  @apply mt-6 border-l-2 pl-6 italic;
+}
+
+.tiptap code {
+  @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
+}
+
+.tiptap pre {
+  @apply mt-6 mb-4 overflow-x-auto rounded-lg bg-black p-4 text-white dark:bg-zinc-900;
+}
+
+.tiptap pre code {
+  @apply bg-transparent p-0 font-mono text-sm text-white;
+}
+
+/* Task List Styles */
+.tiptap ul[data-type="taskList"] {
+  @apply list-none ml-0;
+}
+
+.tiptap ul[data-type="taskList"] li {
+  @apply flex items-start gap-2 mt-2;
+}
+
+.tiptap ul[data-type="taskList"] li > label {
+  @apply flex-shrink-0 mt-1 cursor-pointer;
+}
+
+.tiptap ul[data-type="taskList"] li > div {
+  @apply flex-1 min-w-0;
+}
+
+.tiptap ul[data-type="taskList"] li[data-checked="true"] > div {
+  @apply line-through text-muted-foreground;
+}
+
+.tiptap ul[data-type="taskList"] input[type="checkbox"] {
+  @apply w-4 h-4 rounded border-gray-300 transition-all;
+}
