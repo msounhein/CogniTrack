@@ -16,9 +16,9 @@ export function extractTasks(content: string) {
 
   // Handle Tiptap HTML format
   // We'll look for taskItem <li> tags and extract data-checked and the content from the first <p>
-  const liTaskRegex = /<li [^>]*data-type="taskItem"[^>]*>.*?<\/li>/gs;
+  const liTaskRegex = /<li [^>]*data-type="taskItem"[^>]*>[\s\S]*?<\/li>/g;
   const checkedRegex = /data-checked="([^"]*)"/;
-  const contentRegex = /<div>.*?<p>(.*?)<\/p>.*?<\/div>/s;
+  const contentRegex = /<div>[\s\S]*?<p>([\s\S]*?)<\/p>[\s\S]*?<\/div>/;
 
   let liMatch;
   while ((liMatch = liTaskRegex.exec(content)) !== null) {

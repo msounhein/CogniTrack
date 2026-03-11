@@ -1,6 +1,7 @@
 'use client';
 
-import { BubbleMenu as TiptapBubbleMenu, Editor } from '@tiptap/react';
+import { BubbleMenu as TiptapBubbleMenu } from '@tiptap/react/menus';
+import { Editor } from '@tiptap/react';
 import { 
   Bold, 
   Italic, 
@@ -24,7 +25,6 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
   return (
     <TiptapBubbleMenu
       editor={editor}
-      tippyOptions={{ duration: 100 }}
       className="flex items-center gap-0.5 p-1 rounded-md border bg-popover text-popover-foreground shadow-md"
     >
       <Button

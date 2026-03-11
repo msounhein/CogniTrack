@@ -1,6 +1,7 @@
 'use client';
 
-import { FloatingMenu, Editor } from '@tiptap/react';
+import { FloatingMenu } from '@tiptap/react/menus';
+import { Editor } from '@tiptap/react';
 import { 
   Heading1, 
   Heading2, 
@@ -21,7 +22,6 @@ export default function SlashMenu({ editor }: SlashMenuProps) {
   return (
     <FloatingMenu
       editor={editor}
-      tippyOptions={{ duration: 100 }}
       className="flex flex-col gap-0.5 p-1 rounded-md border bg-popover text-popover-foreground shadow-md min-w-[180px]"
     >
       <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
