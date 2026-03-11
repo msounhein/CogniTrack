@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Document {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  tasks     Task[]
+  folderId  String?
+  folder    Folder?  @relation(fields: [folderId], references: [id])
+}
+
+model Folder {
+  id          String     @id @default(cuid())
+  name        String
+  parentId    String?
+  parent      Folder?    @relation("Subfolders", fields: [parentId], references: [id])
+  subfolders  Folder[]   @relation("Subfolders")
+  documents   Document[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Task {
+  id         String   @id @default(cuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  content    String
+  status     String   @default("todo") // "todo", "in_progress", "done"
+  dueDate    DateTime?
+  tags       String?
+}
