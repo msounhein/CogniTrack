@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma';
-import Editor from '@/components/Editor';
+import AdvancedEditor from '@/components/AdvancedEditor';
 import { notFound } from 'next/navigation';
 
 export default async function NotePage({
@@ -16,8 +16,8 @@ export default async function NotePage({
   });
 
   return (
-    <div className="flex-1 overflow-hidden p-4">
-      <Editor 
+    <div className="flex-1 h-full overflow-hidden p-8 max-w-4xl mx-auto">
+      <AdvancedEditor 
         id={id} 
         initialTitle={document?.title} 
         initialContent={document?.content} 
