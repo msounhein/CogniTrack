@@ -12,16 +12,19 @@ import {
   SidebarGroupLabel,
   SidebarGroupContent
 } from '@/components/ui/sidebar';
-import { LayoutDashboard, Search, FolderPlus, FilePlus } from 'lucide-react';
+import { LayoutDashboard, Search, FolderPlus, FilePlus, Moon, Sun } from 'lucide-react';
 import Link from 'next/link';
 import FileTree from './FileTree';
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
+import { useTheme } from 'next-themes';
+import { Button } from './ui/button';
 
 export default function AppSidebar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [refreshKey, setRefreshKey] = useState(0);
   const router = useRouter();
+  const { theme, setTheme } = useTheme();
 
   const handleCreateNote = async (folderId?: string) => {
     try {
@@ -61,13 +64,23 @@ export default function AppSidebar() {
   return (
     <Sidebar className="border-r">
       <SidebarHeader className="p-4">
-        <div className="flex items-center gap-2 px-2 mb-4">
+        <div className="flex items-center justify-between px-2 mb-4">
           <Link href="/" className="flex items-center gap-2">
             <div className="w-6 h-6 rounded bg-primary flex items-center justify-center">
               <span className="text-primary-foreground text-xs font-bold">C</span>
             </div>
             <span className="font-bold text-lg">CogniTrack</span>
           </Link>
+          <Button
+            variant="ghost"
+            size="icon-xs"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            title="Toggle Theme"
+          >
+            <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <span className="sr-only">Toggle theme</span>
+          </Button>
         </div>
         
         <div className="relative mb-2">
