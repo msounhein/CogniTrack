@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 export default function Home() {
@@ -18,9 +18,12 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">Create and manage your markdown notes.</p>
-              <Button asChild className="w-full">
-                <Link href="/notes/welcome">Go to Welcome Note</Link>
-              </Button>
+              <Link 
+                href="/notes/welcome" 
+                className={buttonVariants({ className: "w-full" })}
+              >
+                Go to Welcome Note
+              </Link>
             </CardContent>
           </Card>
 
@@ -30,9 +33,12 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">View all extracted tasks from your notes.</p>
-              <Button asChild variant="outline" className="w-full">
-                <Link href="/tasks">View Task Dashboard</Link>
-              </Button>
+              <Link 
+                href="/tasks" 
+                className={buttonVariants({ variant: "outline", className: "w-full" })}
+              >
+                View Task Dashboard
+              </Link>
             </CardContent>
           </Card>
         </div>

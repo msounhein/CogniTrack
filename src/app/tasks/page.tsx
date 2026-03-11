@@ -25,7 +25,7 @@ export default async function TasksPage() {
         </Card>
       ) : (
         <div className="space-y-4">
-          {tasks.map((task) => (
+          {tasks.map((task: any) => (
             <Card key={task.id} className="hover:border-primary transition-colors cursor-default">
               <CardContent className="pt-6 flex justify-between items-center">
                 <div className="flex flex-col gap-1">

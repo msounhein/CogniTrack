@@ -87,11 +87,9 @@ export default function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="Dashboard">
-                  <Link href="/tasks" className="flex items-center gap-2">
-                    <LayoutDashboard className="w-4 h-4" />
-                    <span>Task Dashboard</span>
-                  </Link>
+                <SidebarMenuButton render={<Link href="/tasks" />} tooltip="Dashboard">
+                  <LayoutDashboard className="w-4 h-4" />
+                  <span>Task Dashboard</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
