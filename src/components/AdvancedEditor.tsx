@@ -9,6 +9,7 @@ import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
 import Placeholder from '@tiptap/extension-placeholder';
 import Typography from '@tiptap/extension-typography';
+import BubbleMenu from './editor/BubbleMenu';
 
 interface EditorProps {
   id: string;
@@ -98,6 +99,7 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
         </div>
       </CardHeader>
       <CardContent className="flex-1 px-0 pb-6 overflow-y-auto">
+        <BubbleMenu editor={editor} />
         <EditorContent editor={editor} />
       </CardContent>
     </Card>
