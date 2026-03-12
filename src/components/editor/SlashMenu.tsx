@@ -22,11 +22,17 @@ export default function SlashMenu({ editor }: SlashMenuProps) {
   return (
     <FloatingMenu
       editor={editor}
+      tippyOptions={{ duration: 100 }}
       shouldShow={({ state }) => {
         const { selection } = state;
         const { $from } = selection;
-        // Only show if selection is empty and at the start of an empty paragraph
-        return selection.empty && $from.parent.type.name === 'paragraph' && $from.parent.content.size === 0;
+        
+        // Show if selection is empty and the current line only contains a '/' or is empty
+        const isParagraph = $from.parent.type.name === 'paragraph';
+        const isEmpty = $from.parent.content.size === 0;
+        const isSlash = $from.parent.textContent === '/';
+        
+        return selection.empty && isParagraph && (isEmpty || isSlash);
       }}
       className="flex flex-col gap-0.5 p-1 rounded-md border bg-popover text-popover-foreground shadow-md min-w-[180px]"
     >

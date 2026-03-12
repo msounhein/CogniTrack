@@ -11,6 +11,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Typography from '@tiptap/extension-typography';
 import BubbleMenu from './editor/BubbleMenu';
 import SlashMenu from './editor/SlashMenu';
+import Toolbar from './editor/Toolbar';
 
 interface EditorProps {
   id: string;
@@ -92,7 +93,9 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
   return (
     <div className="flex-1 h-full w-full bg-accent/5 overflow-y-auto px-4 py-8 sm:px-12 sm:py-16">
       <div className="max-w-4xl mx-auto">
-        <div className="bg-card text-card-foreground rounded-xl border shadow-sm min-h-[calc(100vh-8rem)] flex flex-col">
+        <div className="bg-card text-card-foreground rounded-xl border shadow-sm min-h-[calc(100vh-8rem)] flex flex-col overflow-hidden">
+          <Toolbar editor={editor} />
+          
           <div className="px-8 pt-12 sm:px-16 sm:pt-20">
             <div className="flex justify-between items-end mb-12 w-full gap-4 border-b pb-6">
               <Input
