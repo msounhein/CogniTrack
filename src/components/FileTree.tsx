@@ -134,18 +134,19 @@ export default function FileTree({ searchQuery = '' }: FileTreeProps) {
   }
 
   return (
-    <div className="flex flex-col gap-1 overflow-y-auto px-2">
-      {filteredData?.folders.map((folder) => (
+    <div className="flex flex-col gap-0.5 overflow-y-auto px-1">
+      {data?.folders.map((folder) => (
         <TreeItem key={folder.id} item={folder} type="folder" onRefresh={handleRefresh} />
       ))}
-      {filteredData?.rootDocuments.map((doc) => (
+      {data?.rootDocuments.map((doc) => (
         <TreeItem key={doc.id} item={doc} type="document" onRefresh={handleRefresh} />
       ))}
-      {!filteredData?.folders.length && !filteredData?.rootDocuments.length && (
-        <div className="text-xs text-muted-foreground italic px-4 py-2">
-          {searchQuery ? 'No results found.' : 'No files or folders found.'}
+      {!data?.folders.length && !data?.rootDocuments.length && (
+        <div className="text-[11px] text-muted-foreground/60 italic px-4 py-8 text-center border border-dashed rounded-lg mx-2 mt-4">
+          {searchQuery ? 'No results found.' : 'No files yet.'}
         </div>
       )}
     </div>
   );
-}
+  }
+

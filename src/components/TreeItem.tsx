@@ -65,20 +65,20 @@ export default function TreeItem({ item, type, level = 0, onRefresh }: TreeItemP
   const content = (
     <div 
       className={cn(
-        "flex items-center gap-2 py-1 px-3 hover:bg-accent rounded-md cursor-pointer transition-colors group",
-        type === 'folder' ? "font-medium" : ""
+        "flex items-center gap-2 py-1.5 px-2 hover:bg-accent rounded-md cursor-pointer transition-colors group",
+        type === 'folder' ? "font-medium text-foreground/90" : "text-muted-foreground hover:text-foreground"
       )}
       style={{ paddingLeft: `${paddingLeft}px` }}
       onClick={toggleFolder}
     >
-      <div className="w-4 h-4 flex items-center justify-center">
+      <div className="w-4 h-4 flex items-center justify-center shrink-0">
         {type === 'folder' && (
-          isOpen ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />
+          isOpen ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />
         )}
-        {type === 'document' && <FileText className="w-3.5 h-3.5 text-muted-foreground" />}
+        {type === 'document' && <FileText className="w-3.5 h-3.5" />}
       </div>
-      {type === 'folder' && <FolderIcon className="w-4 h-4 text-primary fill-primary/10" />}
-      <span className="text-sm truncate">
+      {type === 'folder' && <FolderIcon className="w-3.5 h-3.5 text-primary fill-primary/10 shrink-0" />}
+      <span className="text-[13px] truncate leading-none">
         {type === 'folder' ? (item as Folder).name : (item as Document).title || 'Untitled Note'}
       </span>
     </div>

@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import prisma, { Prisma } from '@/lib/prisma';
 import { extractTasks } from '@/lib/parser';
-import { Prisma } from '@prisma/client';
 
 export async function POST(
   request: Request,

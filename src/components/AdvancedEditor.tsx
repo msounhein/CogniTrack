@@ -82,29 +82,35 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
     }
   }, [title, editor]);
 
+  // Notify sidebar to refresh when saved
+  useEffect(() => {
+    if (saveStatus === 'saved') {
+      window.dispatchEvent(new CustomEvent('note-saved'));
+    }
+  }, [saveStatus]);
+
   return (
-    <Card className="flex flex-col h-full w-full border-none shadow-none bg-transparent">
-      <CardHeader className="pb-2 px-0 w-full">
-        <div className="flex justify-between items-center mb-4 w-full gap-4">
-          <Input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="text-3xl font-bold border-none px-0 focus-visible:ring-0 bg-transparent h-auto flex-1"
-            placeholder="Note Title"
-          />
-          <div className="text-xs text-muted-foreground italic bg-accent/50 px-2 py-1 rounded">
-            {saveStatus === 'saving' && 'Saving...'}
-            {saveStatus === 'saved' && 'All changes saved'}
-            {saveStatus === 'error' && 'Error saving changes'}
-            {saveStatus === 'idle' && 'Saved'}
-          </div>
+    <div className="flex flex-col h-full w-full max-w-4xl mx-auto px-4 sm:px-8 py-12">
+      <div className="flex justify-between items-end mb-12 w-full gap-4 border-b pb-4">
+        <Input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="text-4xl sm:text-5xl font-extrabold border-none px-0 focus-visible:ring-0 bg-transparent h-auto flex-1 tracking-tight"
+          placeholder="Note Title"
+        />
+        <div className="text-xs font-medium text-muted-foreground bg-muted/50 px-2.5 py-1 rounded-full border mb-2 shrink-0">
+          {saveStatus === 'saving' && 'Saving...'}
+          {saveStatus === 'saved' && 'Synced'}
+          {saveStatus === 'error' && 'Sync Error'}
+          {saveStatus === 'idle' && 'Synced'}
         </div>
-      </CardHeader>
-      <CardContent className="flex-1 px-0 pb-6 overflow-y-auto">
+      </div>
+      
+      <div className="flex-1 relative w-full">
         <BubbleMenu editor={editor} />
         <SlashMenu editor={editor} />
-        <EditorContent editor={editor} />
-      </CardContent>
-    </Card>
+        <EditorContent editor={editor} className="w-full" />
+      </div>
+    </div>
   );
 }
