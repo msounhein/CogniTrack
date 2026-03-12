@@ -1,7 +1,7 @@
 'use client';
 
 import { BubbleMenu as TiptapBubbleMenu } from '@tiptap/react/menus';
-import { Editor } from '@tiptap/react';
+import { Editor, useEditorState } from '@tiptap/react';
 import { 
   Bold, 
   Italic, 
@@ -20,7 +20,21 @@ interface BubbleMenuProps {
 }
 
 export default function BubbleMenu({ editor }: BubbleMenuProps) {
-  if (!editor) return null;
+  const states = useEditorState({
+    editor,
+    selector: (ctx) => ({
+      isBold: ctx.editor.isActive('bold'),
+      isItalic: ctx.editor.isActive('italic'),
+      isHeading1: ctx.editor.isActive('heading', { level: 1 }),
+      isHeading2: ctx.editor.isActive('heading', { level: 2 }),
+      isBulletList: ctx.editor.isActive('bulletList'),
+      isOrderedList: ctx.editor.isActive('orderedList'),
+      isTaskList: ctx.editor.isActive('taskList'),
+      isCode: ctx.editor.isActive('code'),
+    }),
+  });
+
+  if (!editor || !states) return null;
 
   return (
     <TiptapBubbleMenu
@@ -32,7 +46,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
         size="icon-xs"
         onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleBold().run()}
-        className={editor.isActive('bold') ? 'bg-accent text-accent-foreground' : ''}
+        className={states.isBold ? 'bg-accent text-accent-foreground' : ''}
       >
         <Bold className="h-3.5 w-3.5" />
       </Button>
@@ -41,7 +55,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
         size="icon-xs"
         onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleItalic().run()}
-        className={editor.isActive('italic') ? 'bg-accent text-accent-foreground' : ''}
+        className={states.isItalic ? 'bg-accent text-accent-foreground' : ''}
       >
         <Italic className="h-3.5 w-3.5" />
       </Button>
@@ -53,7 +67,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
         size="icon-xs"
         onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        className={editor.isActive('heading', { level: 1 }) ? 'bg-accent text-accent-foreground' : ''}
+        className={states.isHeading1 ? 'bg-accent text-accent-foreground' : ''}
       >
         <Heading1 className="h-3.5 w-3.5" />
       </Button>
@@ -62,7 +76,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
         size="icon-xs"
         onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={editor.isActive('heading', { level: 2 }) ? 'bg-accent text-accent-foreground' : ''}
+        className={states.isHeading2 ? 'bg-accent text-accent-foreground' : ''}
       >
         <Heading2 className="h-3.5 w-3.5" />
       </Button>
@@ -74,7 +88,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
         size="icon-xs"
         onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={editor.isActive('bulletList') ? 'bg-accent text-accent-foreground' : ''}
+        className={states.isBulletList ? 'bg-accent text-accent-foreground' : ''}
       >
         <List className="h-3.5 w-3.5" />
       </Button>
@@ -83,7 +97,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
         size="icon-xs"
         onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        className={editor.isActive('orderedList') ? 'bg-accent text-accent-foreground' : ''}
+        className={states.isOrderedList ? 'bg-accent text-accent-foreground' : ''}
       >
         <ListOrdered className="h-3.5 w-3.5" />
       </Button>
@@ -92,7 +106,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
         size="icon-xs"
         onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleTaskList().run()}
-        className={editor.isActive('taskList') ? 'bg-accent text-accent-foreground' : ''}
+        className={states.isTaskList ? 'bg-accent text-accent-foreground' : ''}
       >
         <CheckSquare className="h-3.5 w-3.5" />
       </Button>
@@ -104,7 +118,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
         size="icon-xs"
         onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleCode().run()}
-        className={editor.isActive('code') ? 'bg-accent text-accent-foreground' : ''}
+        className={states.isCode ? 'bg-accent text-accent-foreground' : ''}
       >
         <Code className="h-3.5 w-3.5" />
       </Button>

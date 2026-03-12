@@ -26,7 +26,7 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
 
   const editor = useEditor({
     immediatelyRender: false,
-    shouldRerenderOnTransaction: true,
+    shouldRerenderOnTransaction: false,
     extensions: [
       StarterKit.configure({
         heading: {
