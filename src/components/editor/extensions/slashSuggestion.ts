@@ -58,14 +58,15 @@ export default {
         title: 'Link',
         icon: 'LINK',
         command: ({ editor, range }: any) => {
-          const url = window.prompt('URL');
-          if (url) {
-            // Delete the slash command and insert the URL as a clickable link
-            editor.chain().focus().deleteRange(range).insertContent(`<a href="${url}">${url}</a>`).run();
-          } else {
-            // Just delete the slash command if they cancel
-            editor.chain().focus().deleteRange(range).run();
-          }
+          // Delete the slash command, insert placeholder text, select it, and set an empty link.
+          // This will trigger the LinkMenu to appear so the user can type the URL.
+          editor.chain()
+            .focus()
+            .deleteRange(range)
+            .insertContent('link')
+            .setTextSelection({ from: range.from, to: range.from + 4 })
+            .setLink({ href: '' })
+            .run();
         },
       },
     ].filter(item => item.title.toLowerCase().startsWith(query.toLowerCase())).slice(0, 10);

@@ -25,22 +25,17 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
   const setLink = useCallback(() => {
     if (!editor) return;
 
-    const previousUrl = editor.getAttributes('link').href;
-    const url = window.prompt('URL', previousUrl);
-
-    // cancelled
-    if (url === null) {
+    if (editor.isActive('link')) {
+      editor.chain().focus().unsetLink().run();
       return;
     }
 
-    // empty
-    if (url === '') {
-      editor.chain().focus().extendMarkRange('link').unsetLink().run();
-      return;
+    const { empty, from } = editor.state.selection;
+    if (empty) {
+      editor.chain().focus().insertContent('link').setTextSelection({ from, to: from + 4 }).setLink({ href: '' }).run();
+    } else {
+      editor.chain().focus().setLink({ href: '' }).run();
     }
-
-    // update link
-    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
   }, [editor]);
 
   const states = useEditorState({

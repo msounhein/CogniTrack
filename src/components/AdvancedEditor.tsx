@@ -18,6 +18,7 @@ import CodeBlockComponent from './editor/extensions/CodeBlockComponent';
 import { SlashCommand } from './editor/extensions/slashCommand';
 import suggestion from './editor/extensions/slashSuggestion';
 import BubbleMenu from './editor/BubbleMenu';
+import LinkMenu from './editor/LinkMenu';
 import Toolbar from './editor/Toolbar';
 
 const lowlight = createLowlight(common);
@@ -157,6 +158,7 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
           
           <div className="flex-1 relative px-8 pb-12 sm:px-16 sm:pb-20">
             <BubbleMenu editor={editor} />
+            <LinkMenu editor={editor} />
             <EditorContent editor={editor} className="w-full" />
           </div>
         </div>
