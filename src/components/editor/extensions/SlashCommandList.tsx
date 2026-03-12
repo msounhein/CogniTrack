@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
-import { Heading1, Heading2, List, ListOrdered, CheckSquare, Quote, Code } from 'lucide-react';
+import { Heading1, Heading2, List, ListOrdered, CheckSquare, Quote, Code, Link as LinkIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface CommandItem {
@@ -52,6 +52,7 @@ const SlashCommandList = forwardRef((props: any, ref) => {
       case 'CH': return <CheckSquare className="w-4 h-4" />;
       case 'BQ': return <Quote className="w-4 h-4" />;
       case 'CB': return <Code className="w-4 h-4" />;
+      case 'LINK': return <LinkIcon className="w-4 h-4" />;
       default: return null;
     }
   };

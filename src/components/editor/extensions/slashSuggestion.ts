@@ -54,6 +54,20 @@ export default {
           editor.chain().focus().deleteRange(range).toggleCodeBlock().run();
         },
       },
+      {
+        title: 'Link',
+        icon: 'LINK',
+        command: ({ editor, range }: any) => {
+          // Delete the slash command first
+          editor.chain().focus().deleteRange(range).run();
+          
+          // Then prompt for the URL
+          const url = window.prompt('URL');
+          if (url) {
+            editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+          }
+        },
+      },
     ].filter(item => item.title.toLowerCase().startsWith(query.toLowerCase())).slice(0, 10);
   },
 
