@@ -16,7 +16,7 @@ export default async function NotePage({
   });
 
   return (
-    <div className="flex-1 h-full overflow-hidden p-8 max-w-4xl mx-auto">
+    <div className="flex-1 h-full w-full overflow-hidden p-8 max-w-4xl mx-auto">
       <AdvancedEditor 
         id={id} 
         initialTitle={document?.title} 

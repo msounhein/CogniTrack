@@ -83,13 +83,13 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
   }, [title, editor]);
 
   return (
-    <Card className="flex flex-col h-full border-none shadow-none bg-transparent">
-      <CardHeader className="pb-2 px-0">
-        <div className="flex justify-between items-center mb-4">
+    <Card className="flex flex-col h-full w-full border-none shadow-none bg-transparent">
+      <CardHeader className="pb-2 px-0 w-full">
+        <div className="flex justify-between items-center mb-4 w-full gap-4">
           <Input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="text-3xl font-bold border-none px-0 focus-visible:ring-0 bg-transparent h-auto"
+            className="text-3xl font-bold border-none px-0 focus-visible:ring-0 bg-transparent h-auto flex-1"
             placeholder="Note Title"
           />
           <div className="text-xs text-muted-foreground italic bg-accent/50 px-2 py-1 rounded">
