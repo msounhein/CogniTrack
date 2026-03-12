@@ -37,7 +37,6 @@ export default function SlashMenu({ editor }: SlashMenuProps) {
   return (
     <FloatingMenu
       editor={editor}
-      tippyOptions={{ duration: 100 }}
       shouldShow={({ state }) => {
         const { selection } = state;
         const { $from } = selection;
