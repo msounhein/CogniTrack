@@ -1,5 +1,5 @@
-import { BubbleMenu as TiptapBubbleMenu, useEditorState } from '@tiptap/react';
-import { Editor } from '@tiptap/react';
+import { BubbleMenu as TiptapBubbleMenu } from '@tiptap/react/menus';
+import { Editor, useEditorState } from '@tiptap/react';
 import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
