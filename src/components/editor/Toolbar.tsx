@@ -86,7 +86,10 @@ export default function Toolbar({ editor }: ToolbarProps) {
           variant="ghost"
           size="icon-xs"
           onMouseDown={(e) => e.preventDefault()}
-          onClick={() => editor.chain().focus().toggleBold().run()}
+          onClick={() => {
+            console.log('Bold Clicked');
+            editor.chain().focus().toggleBold().run();
+          }}
           className={editor.isActive('bold') ? 'bg-accent text-accent-foreground' : ''}
           title="Bold"
         >

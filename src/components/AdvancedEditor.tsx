@@ -26,6 +26,7 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
 
   const editor = useEditor({
     immediatelyRender: false,
+    shouldRerenderOnTransaction: true,
     extensions: [
       StarterKit.configure({
         heading: {
@@ -53,7 +54,11 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
         class: 'prose prose-sm dark:prose-invert max-w-none focus:outline-none min-h-[500px] tiptap px-4 py-4',
       },
     },
+    onCreate: ({ editor }) => {
+      console.log('Editor Created');
+    },
     onUpdate: ({ editor }) => {
+      console.log('Editor Updated:', editor.getHTML());
       handleAutoSave(title, editor.getHTML());
     },
   });
