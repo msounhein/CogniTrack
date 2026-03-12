@@ -20,6 +20,7 @@ import suggestion from './editor/extensions/slashSuggestion';
 import BubbleMenu from './editor/BubbleMenu';
 import LinkMenu from './editor/LinkMenu';
 import Toolbar from './editor/Toolbar';
+import { EditorContextMenu } from './editor/EditorContextMenu';
 
 const lowlight = createLowlight(common);
 
@@ -157,9 +158,11 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
           </div>
           
           <div className="flex-1 relative px-8 pb-12 sm:px-16 sm:pb-20">
-            <BubbleMenu editor={editor} />
-            <LinkMenu editor={editor} />
-            <EditorContent editor={editor} className="w-full" />
+            <EditorContextMenu editor={editor}>
+              <BubbleMenu editor={editor} />
+              <LinkMenu editor={editor} />
+              <EditorContent editor={editor} className="w-full h-full" />
+            </EditorContextMenu>
           </div>
         </div>
       </div>
