@@ -90,26 +90,32 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
   }, [saveStatus]);
 
   return (
-    <div className="flex flex-col h-full w-full max-w-4xl mx-auto px-4 sm:px-8 py-12">
-      <div className="flex justify-between items-end mb-12 w-full gap-4 border-b pb-4">
-        <Input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="text-4xl sm:text-5xl font-extrabold border-none px-0 focus-visible:ring-0 bg-transparent h-auto flex-1 tracking-tight"
-          placeholder="Note Title"
-        />
-        <div className="text-xs font-medium text-muted-foreground bg-muted/50 px-2.5 py-1 rounded-full border mb-2 shrink-0">
-          {saveStatus === 'saving' && 'Saving...'}
-          {saveStatus === 'saved' && 'Synced'}
-          {saveStatus === 'error' && 'Sync Error'}
-          {saveStatus === 'idle' && 'Synced'}
+    <div className="flex-1 h-full w-full bg-accent/5 overflow-y-auto px-4 py-8 sm:px-12 sm:py-16">
+      <div className="max-w-4xl mx-auto">
+        <div className="bg-card text-card-foreground rounded-xl border shadow-sm min-h-[calc(100vh-8rem)] flex flex-col">
+          <div className="px-8 pt-12 sm:px-16 sm:pt-20">
+            <div className="flex justify-between items-end mb-12 w-full gap-4 border-b pb-6">
+              <Input
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="text-4xl sm:text-5xl font-extrabold border-none px-0 focus-visible:ring-0 bg-transparent h-auto flex-1 tracking-tight"
+                placeholder="Note Title"
+              />
+              <div className="text-xs font-medium text-muted-foreground bg-muted/50 px-2.5 py-1 rounded-full border mb-2 shrink-0">
+                {saveStatus === 'saving' && 'Saving...'}
+                {saveStatus === 'saved' && 'Synced'}
+                {saveStatus === 'error' && 'Sync Error'}
+                {saveStatus === 'idle' && 'Synced'}
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex-1 relative px-8 pb-12 sm:px-16 sm:pb-20">
+            <BubbleMenu editor={editor} />
+            <SlashMenu editor={editor} />
+            <EditorContent editor={editor} className="w-full" />
+          </div>
         </div>
-      </div>
-      
-      <div className="flex-1 relative w-full">
-        <BubbleMenu editor={editor} />
-        <SlashMenu editor={editor} />
-        <EditorContent editor={editor} className="w-full" />
       </div>
     </div>
   );
