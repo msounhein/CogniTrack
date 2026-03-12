@@ -30,6 +30,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
       <Button
         variant="ghost"
         size="icon-xs"
+        onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleBold().run()}
         className={editor.isActive('bold') ? 'bg-accent text-accent-foreground' : ''}
       >
@@ -38,6 +39,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
       <Button
         variant="ghost"
         size="icon-xs"
+        onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleItalic().run()}
         className={editor.isActive('italic') ? 'bg-accent text-accent-foreground' : ''}
       >
@@ -49,6 +51,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
       <Button
         variant="ghost"
         size="icon-xs"
+        onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={editor.isActive('heading', { level: 1 }) ? 'bg-accent text-accent-foreground' : ''}
       >
@@ -57,6 +60,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
       <Button
         variant="ghost"
         size="icon-xs"
+        onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         className={editor.isActive('heading', { level: 2 }) ? 'bg-accent text-accent-foreground' : ''}
       >
@@ -68,6 +72,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
       <Button
         variant="ghost"
         size="icon-xs"
+        onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={editor.isActive('bulletList') ? 'bg-accent text-accent-foreground' : ''}
       >
@@ -76,6 +81,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
       <Button
         variant="ghost"
         size="icon-xs"
+        onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={editor.isActive('orderedList') ? 'bg-accent text-accent-foreground' : ''}
       >
@@ -84,6 +90,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
       <Button
         variant="ghost"
         size="icon-xs"
+        onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleTaskList().run()}
         className={editor.isActive('taskList') ? 'bg-accent text-accent-foreground' : ''}
       >
@@ -95,6 +102,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
       <Button
         variant="ghost"
         size="icon-xs"
+        onMouseDown={(e) => e.preventDefault()}
         onClick={() => editor.chain().focus().toggleCode().run()}
         className={editor.isActive('code') ? 'bg-accent text-accent-foreground' : ''}
       >

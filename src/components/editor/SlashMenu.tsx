@@ -19,6 +19,21 @@ interface SlashMenuProps {
 export default function SlashMenu({ editor }: SlashMenuProps) {
   if (!editor) return null;
 
+  const executeCommand = (command: () => void) => {
+    // 1. Get the current line text
+    const { state } = editor;
+    const { $from } = state.selection;
+    const currentLineText = $from.parent.textContent;
+
+    // 2. If it ends with '/', delete it
+    if (currentLineText.endsWith('/')) {
+      editor.chain().focus().deleteRange({ from: $from.pos - 1, to: $from.pos }).run();
+    }
+
+    // 3. Execute the actual command
+    command();
+  };
+
   return (
     <FloatingMenu
       editor={editor}
@@ -27,12 +42,11 @@ export default function SlashMenu({ editor }: SlashMenuProps) {
         const { selection } = state;
         const { $from } = selection;
         
-        // Show if selection is empty and the current line only contains a '/' or is empty
+        // ONLY show if the text is exactly '/' or ends with '/'
         const isParagraph = $from.parent.type.name === 'paragraph';
-        const isEmpty = $from.parent.content.size === 0;
-        const isSlash = $from.parent.textContent === '/';
+        const text = $from.parent.textContent;
         
-        return selection.empty && isParagraph && (isEmpty || isSlash);
+        return selection.empty && isParagraph && text === '/';
       }}
       className="flex flex-col gap-0.5 p-1 rounded-md border bg-popover text-popover-foreground shadow-md min-w-[180px]"
     >
@@ -44,7 +58,8 @@ export default function SlashMenu({ editor }: SlashMenuProps) {
         variant="ghost"
         size="sm"
         className="justify-start gap-2 px-2 h-9"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={() => executeCommand(() => editor.chain().focus().toggleHeading({ level: 1 }).run())}
       >
         <Heading1 className="h-4 w-4" />
         <span className="text-sm">Heading 1</span>
@@ -54,7 +69,8 @@ export default function SlashMenu({ editor }: SlashMenuProps) {
         variant="ghost"
         size="sm"
         className="justify-start gap-2 px-2 h-9"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={() => executeCommand(() => editor.chain().focus().toggleHeading({ level: 2 }).run())}
       >
         <Heading2 className="h-4 w-4" />
         <span className="text-sm">Heading 2</span>
@@ -64,7 +80,8 @@ export default function SlashMenu({ editor }: SlashMenuProps) {
         variant="ghost"
         size="sm"
         className="justify-start gap-2 px-2 h-9"
-        onClick={() => editor.chain().focus().toggleBulletList().run()}
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={() => executeCommand(() => editor.chain().focus().toggleBulletList().run())}
       >
         <List className="h-4 w-4" />
         <span className="text-sm">Bullet List</span>
@@ -74,7 +91,8 @@ export default function SlashMenu({ editor }: SlashMenuProps) {
         variant="ghost"
         size="sm"
         className="justify-start gap-2 px-2 h-9"
-        onClick={() => editor.chain().focus().toggleTaskList().run()}
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={() => executeCommand(() => editor.chain().focus().toggleTaskList().run())}
       >
         <CheckSquare className="h-4 w-4" />
         <span className="text-sm">Task List</span>
@@ -84,7 +102,8 @@ export default function SlashMenu({ editor }: SlashMenuProps) {
         variant="ghost"
         size="sm"
         className="justify-start gap-2 px-2 h-9"
-        onClick={() => editor.chain().focus().toggleBlockquote().run()}
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={() => executeCommand(() => editor.chain().focus().toggleBlockquote().run())}
       >
         <Quote className="h-4 w-4" />
         <span className="text-sm">Quote</span>
@@ -94,7 +113,8 @@ export default function SlashMenu({ editor }: SlashMenuProps) {
         variant="ghost"
         size="sm"
         className="justify-start gap-2 px-2 h-9"
-        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={() => executeCommand(() => editor.chain().focus().toggleCodeBlock().run())}
       >
         <Code className="h-4 w-4" />
         <span className="text-sm">Code Block</span>
