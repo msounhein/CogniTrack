@@ -199,7 +199,7 @@
 
 /* Explicit Code Block Styling for Tiptap + Prose */
 .prose pre {
-  @apply bg-zinc-950 text-zinc-50 p-4 rounded-lg my-6 overflow-x-auto border border-zinc-800;
+  @apply bg-[#0d1117] text-[#c9d1d9] p-4 rounded-lg my-6 overflow-x-auto border border-zinc-800;
 }
 
 .prose pre code {
@@ -209,3 +209,15 @@
 .prose :not(pre) > code {
   @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono font-medium;
 }
+
+/* Base highlight.js Github Dark Theme overrides for Tiptap */
+.hljs-keyword, .hljs-built_in, .hljs-type, .hljs-literal, .hljs-symbol { color: #ff7b72; font-weight: normal; }
+.hljs-number { color: #79c0ff; }
+.hljs-string, .hljs-regexp, .hljs-addition { color: #a5d6ff; }
+.hljs-class, .hljs-title { color: #d2a8ff; font-weight: normal; }
+.hljs-variable, .hljs-template-variable { color: #79c0ff; }
+.hljs-comment, .hljs-quote, .hljs-deletion { color: #8b949e; font-style: italic; }
+.hljs-meta { color: #8b949e; }
+.hljs-doctag { color: #ff7b72; }
+.hljs-attr, .hljs-attribute { color: #79c0ff; }
+.hljs-section, .hljs-name, .hljs-selector-tag, .hljs-selector-id, .hljs-selector-class { color: #7ee787; font-weight: normal; }
