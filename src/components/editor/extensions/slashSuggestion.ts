@@ -58,13 +58,13 @@ export default {
         title: 'Link',
         icon: 'LINK',
         command: ({ editor, range }: any) => {
-          // Delete the slash command first
-          editor.chain().focus().deleteRange(range).run();
-          
-          // Then prompt for the URL
           const url = window.prompt('URL');
           if (url) {
-            editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+            // Delete the slash command and insert the URL as a clickable link
+            editor.chain().focus().deleteRange(range).insertContent(`<a href="${url}">${url}</a>`).run();
+          } else {
+            // Just delete the slash command if they cancel
+            editor.chain().focus().deleteRange(range).run();
           }
         },
       },
