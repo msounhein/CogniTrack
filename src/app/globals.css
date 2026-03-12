@@ -138,6 +138,35 @@
   @apply text-muted-foreground float-left h-0 pointer-events-none content-[attr(data-placeholder)];
 }
 
+/* Explicit Heading & List Styles for Tiptap */
+.prose h1 {
+  @apply text-4xl font-extrabold tracking-tight mt-8 mb-4 lg:text-5xl;
+}
+
+.prose h2 {
+  @apply text-3xl font-semibold tracking-tight mt-10 mb-4 pb-2 border-b first:mt-0;
+}
+
+.prose h3 {
+  @apply text-2xl font-semibold tracking-tight mt-8 mb-4;
+}
+
+.prose p {
+  @apply leading-7 mt-4 first:mt-0 mb-4;
+}
+
+.prose blockquote {
+  @apply mt-6 border-l-4 border-muted pl-6 italic text-muted-foreground bg-muted/20 py-2 rounded-r-md;
+}
+
+.prose ul:not([data-type="taskList"]) {
+  @apply my-6 ml-6 list-disc [&>li]:mt-2;
+}
+
+.prose ol {
+  @apply my-6 ml-6 list-decimal [&>li]:mt-2;
+}
+
 /* Fix Prose Task List Styles */
 .prose ul[data-type="taskList"] {
   @apply list-none ml-0 pl-0;
