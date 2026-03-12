@@ -24,6 +24,7 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: [
       StarterKit,
       TaskList,
