@@ -16,14 +16,14 @@ export default function CodeBlockComponent({
         contentEditable={false}
       >
         <Select
-          defaultValue={defaultLanguage || 'null'}
-          onValueChange={(value) => updateAttributes({ language: value })}
+          value={defaultLanguage || 'auto'}
+          onValueChange={(value) => updateAttributes({ language: value === 'auto' ? null : value })}
         >
           <SelectTrigger className="h-7 w-[120px] text-xs bg-zinc-900 border-zinc-700 text-zinc-300">
             <SelectValue placeholder="Language" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="null">auto</SelectItem>
+            <SelectItem value="auto">Auto</SelectItem>
             {extension.options.lowlight.listLanguages().map((lang: string, index: number) => (
               <SelectItem key={index} value={lang}>
                 {lang}
