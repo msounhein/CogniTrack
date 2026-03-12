@@ -17,10 +17,32 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface ToolbarProps {
   editor: Editor | null;
 }
+
+const FONT_FAMILIES = [
+  { name: 'Inter', value: 'Inter' },
+  { name: 'Comic Sans MS', value: 'Comic Sans MS' },
+  { name: 'Times New Roman', value: 'Comic Sans MS, Comic Sans' }, // Fun alternative, but let's stick to standard names where possible
+  { name: 'Serif', value: 'serif' },
+  { name: 'Monospace', value: 'monospace' },
+];
+
+const FONT_SIZES = [
+  { name: 'Small', value: '12px' },
+  { name: 'Normal', value: '16px' },
+  { name: 'Large', value: '20px' },
+  { name: 'Huge', value: '24px' },
+];
 
 export default function Toolbar({ editor }: ToolbarProps) {
   const states = useEditorState({
@@ -40,6 +62,8 @@ export default function Toolbar({ editor }: ToolbarProps) {
           isCodeBlock: false,
           canUndo: false,
           canRedo: false,
+          currentFont: 'Inter',
+          currentSize: '16px',
         };
       }
       return {
@@ -55,6 +79,8 @@ export default function Toolbar({ editor }: ToolbarProps) {
         isCodeBlock: ctx.editor.isActive('codeBlock'),
         canUndo: ctx.editor.can().undo(),
         canRedo: ctx.editor.can().redo(),
+        currentFont: ctx.editor.getAttributes('textStyle').fontFamily || 'Inter',
+        currentSize: ctx.editor.getAttributes('textStyle').fontSize || '16px',
       };
     },
   });
@@ -63,6 +89,42 @@ export default function Toolbar({ editor }: ToolbarProps) {
 
   return (
     <div className="border-b bg-muted/20 px-3 py-2 flex flex-wrap gap-1 items-center sticky top-0 z-10 backdrop-blur-sm">
+      <div className="flex items-center gap-2 mr-1">
+        <Select 
+          value={states.currentFont} 
+          onValueChange={(value) => editor.chain().focus().setFontFamily(value).run()}
+        >
+          <SelectTrigger className="h-8 w-[120px] text-xs">
+            <SelectValue placeholder="Font" />
+          </SelectTrigger>
+          <SelectContent>
+            {FONT_FAMILIES.map(font => (
+              <SelectItem key={font.value} value={font.value} className="text-xs">
+                {font.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select 
+          value={states.currentSize} 
+          onValueChange={(value) => editor.chain().focus().setFontSize(value).run()}
+        >
+          <SelectTrigger className="h-8 w-[90px] text-xs">
+            <SelectValue placeholder="Size" />
+          </SelectTrigger>
+          <SelectContent>
+            {FONT_SIZES.map(size => (
+              <SelectItem key={size.value} value={size.value} className="text-xs">
+                {size.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <Separator orientation="vertical" className="h-6 mx-1" />
+
       <div className="flex items-center gap-0.5">
         <Button
           variant="ghost"

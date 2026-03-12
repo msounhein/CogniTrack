@@ -10,8 +10,12 @@ import TaskItem from '@tiptap/extension-task-item';
 import Placeholder from '@tiptap/extension-placeholder';
 import Typography from '@tiptap/extension-typography';
 import ListKeymap from '@tiptap/extension-list-keymap';
+import TextStyle from '@tiptap/extension-text-style';
+import FontFamily from '@tiptap/extension-font-family';
+import { FontSize } from './editor/extensions/FontSize';
+import { SlashCommand } from './editor/extensions/slashCommand';
+import suggestion from './editor/extensions/slashSuggestion';
 import BubbleMenu from './editor/BubbleMenu';
-import SlashMenu from './editor/SlashMenu';
 import Toolbar from './editor/Toolbar';
 
 interface EditorProps {
@@ -49,6 +53,12 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
         placeholder: 'Start writing...',
       }),
       Typography,
+      TextStyle,
+      FontFamily,
+      FontSize,
+      SlashCommand.configure({
+        suggestion,
+      }),
     ],
     content: initialContent,
     editorProps: {
@@ -64,6 +74,7 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
       handleAutoSave(title, editor.getHTML());
     },
   });
+
 
   const saveNote = useCallback(async (currentTitle: string, currentContent: string) => {
     setSaveStatus('saving');
@@ -132,7 +143,6 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
           
           <div className="flex-1 relative px-8 pb-12 sm:px-16 sm:pb-20">
             <BubbleMenu editor={editor} />
-            <SlashMenu editor={editor} />
             <EditorContent editor={editor} className="w-full" />
           </div>
         </div>
