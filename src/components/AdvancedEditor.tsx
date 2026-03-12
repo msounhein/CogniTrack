@@ -9,6 +9,7 @@ import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
 import Placeholder from '@tiptap/extension-placeholder';
 import Typography from '@tiptap/extension-typography';
+import ListKeymap from '@tiptap/extension-list-keymap';
 import BubbleMenu from './editor/BubbleMenu';
 import SlashMenu from './editor/SlashMenu';
 import Toolbar from './editor/Toolbar';
@@ -36,6 +37,7 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
         orderedList: true,
         codeBlock: true,
       }),
+      ListKeymap,
       TaskList,
       TaskItem.configure({
         nested: true,
