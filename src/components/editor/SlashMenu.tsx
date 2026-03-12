@@ -22,6 +22,12 @@ export default function SlashMenu({ editor }: SlashMenuProps) {
   return (
     <FloatingMenu
       editor={editor}
+      shouldShow={({ state }) => {
+        const { selection } = state;
+        const { $from } = selection;
+        // Only show if selection is empty and at the start of an empty paragraph
+        return selection.empty && $from.parent.type.name === 'paragraph' && $from.parent.content.size === 0;
+      }}
       className="flex flex-col gap-0.5 p-1 rounded-md border bg-popover text-popover-foreground shadow-md min-w-[180px]"
     >
       <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
