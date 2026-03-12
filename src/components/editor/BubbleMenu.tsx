@@ -10,16 +10,39 @@ import {
   CheckSquare,
   Code,
   Heading1,
-  Heading2
+  Heading2,
+  Link as LinkIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { useCallback } from 'react';
 
 interface BubbleMenuProps {
   editor: Editor | null;
 }
 
 export default function BubbleMenu({ editor }: BubbleMenuProps) {
+  const setLink = useCallback(() => {
+    if (!editor) return;
+
+    const previousUrl = editor.getAttributes('link').href;
+    const url = window.prompt('URL', previousUrl);
+
+    // cancelled
+    if (url === null) {
+      return;
+    }
+
+    // empty
+    if (url === '') {
+      editor.chain().focus().extendMarkRange('link').unsetLink().run();
+      return;
+    }
+
+    // update link
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+  }, [editor]);
+
   const states = useEditorState({
     editor,
     selector: (ctx) => {
@@ -33,6 +56,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
           isOrderedList: false,
           isTaskList: false,
           isCode: false,
+          isLink: false,
         };
       }
       return {
@@ -44,6 +68,7 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
         isOrderedList: ctx.editor.isActive('orderedList'),
         isTaskList: ctx.editor.isActive('taskList'),
         isCode: ctx.editor.isActive('code'),
+        isLink: ctx.editor.isActive('link'),
       };
     },
   });
@@ -72,6 +97,15 @@ export default function BubbleMenu({ editor }: BubbleMenuProps) {
         className={states.isItalic ? 'bg-accent text-accent-foreground' : ''}
       >
         <Italic className="h-3.5 w-3.5" />
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon-xs"
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={setLink}
+        className={states.isLink ? 'bg-accent text-accent-foreground' : ''}
+      >
+        <LinkIcon className="h-3.5 w-3.5" />
       </Button>
       
       <Separator orientation="vertical" className="h-4 mx-1" />

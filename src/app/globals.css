@@ -152,6 +152,10 @@
   @apply text-2xl font-semibold tracking-tight mt-8 mb-4;
 }
 
+.prose a {
+  @apply text-blue-500 underline hover:text-blue-400 cursor-pointer;
+}
+
 .prose p {
   @apply leading-7 mt-4 first:mt-0 mb-4;
 }

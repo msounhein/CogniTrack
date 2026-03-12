@@ -13,7 +13,8 @@ import {
   Quote,
   Undo,
   Redo,
-  Strikethrough
+  Strikethrough,
+  Link as LinkIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -24,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useCallback } from 'react';
 
 interface ToolbarProps {
   editor: Editor | null;
@@ -45,6 +47,27 @@ const FONT_SIZES = [
 ];
 
 export default function Toolbar({ editor }: ToolbarProps) {
+  const setLink = useCallback(() => {
+    if (!editor) return;
+
+    const previousUrl = editor.getAttributes('link').href;
+    const url = window.prompt('URL', previousUrl);
+
+    // cancelled
+    if (url === null) {
+      return;
+    }
+
+    // empty
+    if (url === '') {
+      editor.chain().focus().extendMarkRange('link').unsetLink().run();
+      return;
+    }
+
+    // update link
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+  }, [editor]);
+
   const states = useEditorState({
     editor,
     selector: (ctx) => {
@@ -60,6 +83,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
           isTaskList: false,
           isBlockquote: false,
           isCodeBlock: false,
+          isLink: false,
           canUndo: false,
           canRedo: false,
           currentFont: 'Inter',
@@ -77,6 +101,7 @@ export default function Toolbar({ editor }: ToolbarProps) {
         isTaskList: ctx.editor.isActive('taskList'),
         isBlockquote: ctx.editor.isActive('blockquote'),
         isCodeBlock: ctx.editor.isActive('codeBlock'),
+        isLink: ctx.editor.isActive('link'),
         canUndo: ctx.editor.can().undo(),
         canRedo: ctx.editor.can().redo(),
         currentFont: ctx.editor.getAttributes('textStyle').fontFamily || 'Inter',
@@ -205,6 +230,16 @@ export default function Toolbar({ editor }: ToolbarProps) {
           title="Strikethrough"
         >
           <Strikethrough className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon-xs"
+          onMouseDown={(e) => e.preventDefault()}
+          onClick={setLink}
+          className={states.isLink ? 'bg-accent text-accent-foreground' : ''}
+          title="Link"
+        >
+          <LinkIcon className="h-4 w-4" />
         </Button>
       </div>
 

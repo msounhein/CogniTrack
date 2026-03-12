@@ -10,6 +10,7 @@ import TaskItem from '@tiptap/extension-task-item';
 import Placeholder from '@tiptap/extension-placeholder';
 import Typography from '@tiptap/extension-typography';
 import ListKeymap from '@tiptap/extension-list-keymap';
+import Link from '@tiptap/extension-link';
 import { TextStyle, FontFamily, FontSize } from '@tiptap/extension-text-style';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { common, createLowlight } from 'lowlight';
@@ -64,6 +65,11 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
       TextStyle,
       FontFamily,
       FontSize,
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: 'https',
+      }),
       SlashCommand.configure({
         suggestion,
       }),
