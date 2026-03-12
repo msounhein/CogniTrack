@@ -22,16 +22,30 @@ interface BubbleMenuProps {
 export default function BubbleMenu({ editor }: BubbleMenuProps) {
   const states = useEditorState({
     editor,
-    selector: (ctx) => ({
-      isBold: ctx.editor.isActive('bold'),
-      isItalic: ctx.editor.isActive('italic'),
-      isHeading1: ctx.editor.isActive('heading', { level: 1 }),
-      isHeading2: ctx.editor.isActive('heading', { level: 2 }),
-      isBulletList: ctx.editor.isActive('bulletList'),
-      isOrderedList: ctx.editor.isActive('orderedList'),
-      isTaskList: ctx.editor.isActive('taskList'),
-      isCode: ctx.editor.isActive('code'),
-    }),
+    selector: (ctx) => {
+      if (!ctx.editor) {
+        return {
+          isBold: false,
+          isItalic: false,
+          isHeading1: false,
+          isHeading2: false,
+          isBulletList: false,
+          isOrderedList: false,
+          isTaskList: false,
+          isCode: false,
+        };
+      }
+      return {
+        isBold: ctx.editor.isActive('bold'),
+        isItalic: ctx.editor.isActive('italic'),
+        isHeading1: ctx.editor.isActive('heading', { level: 1 }),
+        isHeading2: ctx.editor.isActive('heading', { level: 2 }),
+        isBulletList: ctx.editor.isActive('bulletList'),
+        isOrderedList: ctx.editor.isActive('orderedList'),
+        isTaskList: ctx.editor.isActive('taskList'),
+        isCode: ctx.editor.isActive('code'),
+      };
+    },
   });
 
   if (!editor || !states) return null;

@@ -25,20 +25,38 @@ interface ToolbarProps {
 export default function Toolbar({ editor }: ToolbarProps) {
   const states = useEditorState({
     editor,
-    selector: (ctx) => ({
-      isBold: ctx.editor.isActive('bold'),
-      isItalic: ctx.editor.isActive('italic'),
-      isStrike: ctx.editor.isActive('strike'),
-      isHeading1: ctx.editor.isActive('heading', { level: 1 }),
-      isHeading2: ctx.editor.isActive('heading', { level: 2 }),
-      isBulletList: ctx.editor.isActive('bulletList'),
-      isOrderedList: ctx.editor.isActive('orderedList'),
-      isTaskList: ctx.editor.isActive('taskList'),
-      isBlockquote: ctx.editor.isActive('blockquote'),
-      isCodeBlock: ctx.editor.isActive('codeBlock'),
-      canUndo: ctx.editor.can().undo(),
-      canRedo: ctx.editor.can().redo(),
-    }),
+    selector: (ctx) => {
+      if (!ctx.editor) {
+        return {
+          isBold: false,
+          isItalic: false,
+          isStrike: false,
+          isHeading1: false,
+          isHeading2: false,
+          isBulletList: false,
+          isOrderedList: false,
+          isTaskList: false,
+          isBlockquote: false,
+          isCodeBlock: false,
+          canUndo: false,
+          canRedo: false,
+        };
+      }
+      return {
+        isBold: ctx.editor.isActive('bold'),
+        isItalic: ctx.editor.isActive('italic'),
+        isStrike: ctx.editor.isActive('strike'),
+        isHeading1: ctx.editor.isActive('heading', { level: 1 }),
+        isHeading2: ctx.editor.isActive('heading', { level: 2 }),
+        isBulletList: ctx.editor.isActive('bulletList'),
+        isOrderedList: ctx.editor.isActive('orderedList'),
+        isTaskList: ctx.editor.isActive('taskList'),
+        isBlockquote: ctx.editor.isActive('blockquote'),
+        isCodeBlock: ctx.editor.isActive('codeBlock'),
+        canUndo: ctx.editor.can().undo(),
+        canRedo: ctx.editor.can().redo(),
+      };
+    },
   });
 
   if (!editor || !states) return null;
