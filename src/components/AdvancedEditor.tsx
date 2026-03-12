@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { useEditor, EditorContent } from '@tiptap/react';
+import { useEditor, EditorContent, ReactNodeViewRenderer } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
@@ -11,10 +11,15 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Typography from '@tiptap/extension-typography';
 import ListKeymap from '@tiptap/extension-list-keymap';
 import { TextStyle, FontFamily, FontSize } from '@tiptap/extension-text-style';
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import { common, createLowlight } from 'lowlight';
+import CodeBlockComponent from './editor/extensions/CodeBlockComponent';
 import { SlashCommand } from './editor/extensions/slashCommand';
 import suggestion from './editor/extensions/slashSuggestion';
 import BubbleMenu from './editor/BubbleMenu';
 import Toolbar from './editor/Toolbar';
+
+const lowlight = createLowlight(common);
 
 interface EditorProps {
   id: string;
@@ -37,8 +42,13 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
         },
         bulletList: true,
         orderedList: true,
-        codeBlock: true,
+        codeBlock: false,
       }),
+      CodeBlockLowlight.extend({
+        addNodeView() {
+          return ReactNodeViewRenderer(CodeBlockComponent);
+        },
+      }).configure({ lowlight }),
       ListKeymap,
       TaskList,
       TaskItem.configure({
