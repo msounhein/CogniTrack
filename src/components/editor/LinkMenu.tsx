@@ -44,7 +44,6 @@ export default function LinkMenu({ editor }: LinkMenuProps) {
     <TiptapBubbleMenu
       editor={editor}
       shouldShow={({ editor }) => editor.isActive('link')}
-      tippyOptions={{ placement: 'top', duration: 100 }}
       className="flex items-center gap-1 p-1 bg-popover rounded-md shadow-md border min-w-[250px] z-50"
     >
       <Input
