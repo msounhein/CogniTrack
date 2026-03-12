@@ -165,3 +165,16 @@
 .prose ul[data-type="taskList"] input[type="checkbox"] {
   @apply w-4 h-4 rounded border-gray-300 transition-all cursor-pointer;
 }
+
+/* Explicit Code Block Styling for Tiptap + Prose */
+.prose pre {
+  @apply bg-zinc-950 text-zinc-50 p-4 rounded-lg my-6 overflow-x-auto border border-zinc-800;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0 text-sm font-mono leading-relaxed block text-inherit;
+}
+
+.prose :not(pre) > code {
+  @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono font-medium;
+}

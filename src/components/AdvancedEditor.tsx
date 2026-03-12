@@ -27,10 +27,20 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        heading: {
+          levels: [1, 2, 3],
+        },
+        bulletList: true,
+        orderedList: true,
+        codeBlock: true,
+      }),
       TaskList,
       TaskItem.configure({
         nested: true,
+        HTMLAttributes: {
+          class: 'task-item',
+        },
       }),
       Placeholder.configure({
         placeholder: 'Start writing...',
@@ -40,7 +50,7 @@ export default function AdvancedEditor({ id, initialTitle = 'Untitled Note', ini
     content: initialContent,
     editorProps: {
       attributes: {
-        class: 'prose prose-sm dark:prose-invert max-w-none focus:outline-none min-h-[500px] tiptap',
+        class: 'prose prose-sm dark:prose-invert max-w-none focus:outline-none min-h-[500px] tiptap px-4 py-4',
       },
     },
     onUpdate: ({ editor }) => {
